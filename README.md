@@ -1,97 +1,60 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Inventory Manager
 
-# Getting Started
+![React Native](https://img.shields.io/badge/React%20Native-0.81-61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6)
+![Status](https://img.shields.io/badge/status-prot%C3%B3tipo-orange)
+![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+App mobile (Android e iOS) para organizar um inventário de equipamentos: cada item guarda categoria, localização, quantidade, tags e, no modelo de dados, fotos, manuais, documentos de treinamento, número de série, garantia e fornecedor.
 
-## Step 1: Start Metro
+> **Status: protótipo.** A navegação, o estado global e as duas primeiras telas estão prontos. Cadastro e edição de itens, câmera, anexos e banco de dados local ainda não foram implementados (veja o roteiro abaixo).
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## O que já funciona
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Tela inicial** com o resumo do inventário.
+- **Lista de itens** com busca por nome, descrição, categoria ou localização.
+- **Categorias coloridas** para organizar os itens.
+- **Estado global com Redux Toolkit** em três slices: `inventory`, `categories` e `settings`.
+- **Modelo de dados tipado** (`src/types`): `InventoryItem`, `Category`, `Document` e os filtros de busca.
 
-```sh
-# Using npm
-npm start
+Os dados ficam em memória (`src/services/DatabaseService.ts`), que é o ponto onde entra o SQLite na próxima fase.
 
-# OR using Yarn
-yarn start
+## Tecnologias
+
+React Native 0.81 · TypeScript · Redux Toolkit · React Navigation (stack e bottom tabs) · React Native Vector Icons · Jest
+
+## Estrutura
+
+```
+src/
+├── screens/    # HomeScreen, ItemListScreen
+├── store/      # Redux: index, inventorySlice, categoriesSlice, settingsSlice
+├── services/   # DatabaseService (em memória, por enquanto)
+├── types/      # modelo de dados
+└── utils/      # hooks tipados do Redux e inicialização do app
 ```
 
-## Step 2: Build and run your app
+## Como rodar
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Requer Node.js 20+, o ambiente do React Native ([guia oficial](https://reactnative.dev/docs/set-up-your-environment)) e um emulador ou aparelho.
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
+npx react-native start          # Metro
+npx react-native run-android    # em outro terminal
+# iOS: cd ios && pod install && cd .. && npx react-native run-ios
+npm test                        # Jest
 ```
 
-### iOS
+## Roteiro
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+- [x] Navegação, Redux, telas Início e Lista, categorias
+- [ ] Telas de adicionar e editar itens
+- [ ] Fotos pela câmera e anexos (manuais, documentos)
+- [ ] Banco de dados SQLite e modo offline
+- [ ] Leitor de código de barras
+- [ ] Relatórios e backup
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## Licença
 
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+[Apache 2.0](LICENSE) © Manuel Moraes
